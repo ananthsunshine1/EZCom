@@ -1,3 +1,6 @@
+using EZCom.Services;
+using Microsoft.EntityFrameworkCore;
+
 namespace EZCom
 {
     public class Program
@@ -5,6 +8,10 @@ namespace EZCom
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<EZComDbContext>(
+                options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+                );
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
